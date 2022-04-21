@@ -1,0 +1,77 @@
+----- COMICS -----
+
+Comic
+    X Name - CharField (100)
+    X Summary - TextField
+    - Date Started - DateField
+    - Publisher - ForeignKey (Publisher)
+    - Cover Image - URLField (500)
+    - Banner Image - URLField (500)
+    - Creator - ForeignKey (Creator)
+    X Status - CharField (15) (COMPLETED, RELEASING, CANCELLED)
+    X Format - CharField (15) (COMIC, MANGA)
+    - ComicVine Volume ID - PositiveIntegerField
+    - League of Comic Geeks Series ID - PositiveIntegerField
+    - AniList Manga ID - PositiveIntegerField
+    - MAL Manga ID - PositiveIntegerField
+    - Tankobon Manga ID - PositiveIntegerField
+    - Fandom - URLField (500)
+    - Rating - FloatField
+    - Characters - ManyToManyField (Character)
+    - Genres - ManyToManyField (Genre)
+    ----- META -----
+    - Time Created - DateTimeField
+
+Chapter
+    X Name - CharField (100)
+    X Comic Series - ForeignKey (Comic)
+    X Summary - TextField
+    X Absolute Number - PositiveIntegerField
+    - Volume Number - PositiveIntegerField
+    - Date Published - DateField
+    - Cover Image - URLField (500)
+    - ComicVine Issue ID - PositiveIntegerField
+    - League of Comic Geeks Comic ID - PositiveIntegerField
+    - Rating - FloatField
+    - Page Count - PositiveIntegerField
+    ----- META -----
+    - Time Created - DateTimeField
+
+Publisher
+    X Name - CharField (100)
+    - Logo - URLField (500)
+    - Website - URLField (250)
+    ----- META -----
+    - Time Created - DateTimeField
+
+----- COMMON -----
+
+Character
+    X Name - CharField (100)
+    - Alias - CharField (100)
+    - Alignment - CharField (15) (GOOD, EVIL, ANTIHERO)
+    - Image - URLField (500)
+    - Intelligence - PositiveIntegerField (0-100)
+    - Strength - PositiveIntegerField (0-100)
+    - Speed - PositiveIntegerField (0-100)
+    - Durability - PositiveIntegerField (0-100)
+    - Power - PositiveIntegerField (0-100)
+    - Combat - PositiveIntegerField (0-100)
+    - Base - ForeignKey (Base)
+    ----- META -----
+    - Time Created - DateTimeField
+
+Team
+    X Name - CharField (100)
+    - Base - ForeignKey (Base)
+    - Logo - URLField (500)
+    - Characters - ManyToManyField (Character)
+    ----- META -----
+    - Time Created - DateTimeField
+
+Base
+    X Nation - CharField (100)
+    - City - CharField (100)
+    - Name - CharField (100)
+    ----- META -----
+    - Time Created - DateTimeField
