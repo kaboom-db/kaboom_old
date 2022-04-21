@@ -20,7 +20,7 @@ Comic
     - Characters - ManyToManyField (Character)
     - Genres - ManyToManyField (Genre)
     ----- META -----
-    - Time Created - DateTimeField
+    X Time Created - DateTimeField
 
 Chapter
     X Name - CharField (100)
@@ -35,14 +35,67 @@ Chapter
     - Rating - FloatField
     - Page Count - PositiveIntegerField
     ----- META -----
-    - Time Created - DateTimeField
+    X Time Created - DateTimeField
 
 Publisher
     X Name - CharField (100)
     - Logo - URLField (500)
     - Website - URLField (250)
     ----- META -----
-    - Time Created - DateTimeField
+    X Time Created - DateTimeField
+
+----- CARTOONS -----
+
+Cartoon
+    X Name - CharField (100)
+    X Summary - TextField
+    - Tagline - CharField (100)
+    - Date Started - DateField
+    - Network - ForeignKey (Network)
+    X Status - CharField (15) (COMPLETED, RELEASING, CANCELLED)
+    X Format - CharField (15) (CARTOON, ANIME, MOVIE)
+    - Average Runtime - PositiveIntegerField
+    - Season Count - PositiveIntegerField
+    - Creator - ForeignKey (Creator)
+    - TMDb ID - PositiveIntegerField
+    - IMDb ID - CharField (10)
+    - AniList Anime ID - PositiveIntegerField
+    - MAL Anime ID - PositiveIntegerField
+    - Rating - FloatField
+    - Characters - ManyToManyField (Character)
+    - Genres - ManyToManyField (Genre)
+    ----- META -----
+    X Time Created - DateTimeField
+
+Episode
+    X Name - CharField (100)
+    X Summary - TextField
+    X Absolute Number - PositiveIntegerField
+    X Episode Number - PositiveIntegerField
+    X Season Number - PositiveIntegerField
+    - Time of Release - DateTimeField
+    - Screenshot - URLField (500)
+    - IMDb ID - CharField (10)
+    - Rating - FloatField
+    - Runtime - PositiveIntegerField
+    ----- META -----
+    X Time Created - DateTimeField
+
+Network
+    X Name - CharField (100)
+    - Logo - URLField (500)
+    - Website - URLField (250)
+    ----- META -----
+    X Time Created - DateTimeField
+
+Voice Actor
+    X Name - CharField (100)
+    - Summary - TextField
+    - Image - URLField (500)
+    - Date of Birth - DateField
+    - Date of Death - DateField
+    ----- META -----
+    X Time Created - DateTimeField
 
 ----- COMMON -----
 
@@ -58,20 +111,33 @@ Character
     - Power - PositiveIntegerField (0-100)
     - Combat - PositiveIntegerField (0-100)
     - Base - ForeignKey (Base)
+    - Voice Actors - ManyToManyField (Voice Actor)
     ----- META -----
-    - Time Created - DateTimeField
+    X Time Created - DateTimeField
 
 Team
     X Name - CharField (100)
+    X Summary - TextField
     - Base - ForeignKey (Base)
     - Logo - URLField (500)
     - Characters - ManyToManyField (Character)
     ----- META -----
-    - Time Created - DateTimeField
+    X Time Created - DateTimeField
 
 Base
     X Nation - CharField (100)
     - City - CharField (100)
     - Name - CharField (100)
     ----- META -----
-    - Time Created - DateTimeField
+    X Time Created - DateTimeField
+
+Creator
+    X Name - CharField (150)
+    - Summary - TextField
+    - Date of Birth - DateField
+    - Date of Death - DateField
+    ----- META -----
+    X Time Created - DateTimeField
+
+Genre
+    X Name
