@@ -63,7 +63,7 @@ body {
     }
 }
 
-a, a:hover {
+.link {
     color: black !important;
 }
 

@@ -24,6 +24,14 @@
                 <div class="card-body text-dark">
                     <p>{{ user.bio | markdown | bleach }}</p>
                     <hr>
+                    <p><span title="Only you can see this">🔒</span> <b>Email: </b> {{ user.email }}</p>
+                    {% if user.private == False %}
+                    <p><b>Private: </b>No</p>
+                    {% else %}
+                    <p><b>Private: </b>Yes</p>
+                    {% endif %}
+                    <hr>
+                    <a href="/" class="btn btn-primary">Edit Account</a>
                     <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
                     <a href="{% url 'password_reset' %}" class="btn btn-primary">Reset Password</a>
                     {% if user.is_staff %}

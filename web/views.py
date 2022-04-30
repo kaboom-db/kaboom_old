@@ -16,6 +16,7 @@ def home(request):
         user_count = CustomUser.objects.count()
         ctx = {
             'header': '💥 KABOOM!',
+            'active_home': 'active',
             'num_of_comics': comic_count,
             'num_of_users': user_count
         }
@@ -26,7 +27,7 @@ def home(request):
 @login_required
 def dashboard(request):
     image = get_user_image(request.user.email)
-    return render(request, 'web/dashboard.html', {'image': image})
+    return render(request, 'web/dashboard.html', {'image': image, 'active_home': 'active'})
 
 class SignUpView(generic.CreateView):
     form_class = SignUpForm
