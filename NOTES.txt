@@ -4,25 +4,27 @@ Comic
     X Name - CharField (100)
     X Summary - TextField
     - Date Started - DateField
+    - Date Finished - DateField
     - Publisher - ForeignKey (Publisher)
     - Cover Image - URLField (500)
     - Banner Image - URLField (500)
     - Creator - ForeignKey (Creator)
-    X Status - CharField (15) (COMPLETED, RELEASING, CANCELLED)
-    X Format - CharField (15) (COMIC, MANGA)
+    X Status - CharField (15) (COMPLETED, RELEASING, CANCELLED, PLANNED)
+    X Media Format - CharField (15) (COMIC, WEB COMIC, MANGA)
     - ComicVine Volume ID - PositiveIntegerField
     - League of Comic Geeks Series ID - PositiveIntegerField
     - AniList Manga ID - PositiveIntegerField
     - MAL Manga ID - PositiveIntegerField
     - Tankobon Manga ID - PositiveIntegerField
-    - Fandom - URLField (500)
     - Rating - FloatField
     - Characters - ManyToManyField (Character)
     - Genres - ManyToManyField (Genre)
+    - Website - URLField (250)
     ----- META -----
     X Time Created - DateTimeField
+    X Time Updated - DateTimeField
 
-Chapter
+Issue
     X Name - CharField (100)
     X Comic Series - ForeignKey (Comic)
     X Summary - TextField
@@ -36,6 +38,7 @@ Chapter
     - Page Count - PositiveIntegerField
     ----- META -----
     X Time Created - DateTimeField
+    X Time Updated - DateTimeField
 
 Publisher
     X Name - CharField (100)
@@ -43,6 +46,7 @@ Publisher
     - Website - URLField (250)
     ----- META -----
     X Time Created - DateTimeField
+    X Time Updated - DateTimeField
 
 ----- CARTOONS -----
 
@@ -66,6 +70,7 @@ Cartoon
     - Genres - ManyToManyField (Genre)
     ----- META -----
     X Time Created - DateTimeField
+    X Time Updated - DateTimeField
 
 Episode
     X Name - CharField (100)
@@ -80,6 +85,7 @@ Episode
     - Runtime - PositiveIntegerField
     ----- META -----
     X Time Created - DateTimeField
+    X Time Updated - DateTimeField
 
 Network
     X Name - CharField (100)
@@ -87,20 +93,13 @@ Network
     - Website - URLField (250)
     ----- META -----
     X Time Created - DateTimeField
-
-Voice Actor
-    X Name - CharField (100)
-    - Summary - TextField
-    - Image - URLField (500)
-    - Date of Birth - DateField
-    - Date of Death - DateField
-    ----- META -----
-    X Time Created - DateTimeField
+    X Time Updated - DateTimeField
 
 ----- COMMON -----
 
 Character
     X Name - CharField (100)
+    X Summary - TextField
     - Alias - CharField (100)
     - Alignment - CharField (15) (GOOD, EVIL, ANTIHERO)
     - Image - URLField (500)
@@ -114,6 +113,17 @@ Character
     - Voice Actors - ManyToManyField (Voice Actor)
     ----- META -----
     X Time Created - DateTimeField
+    X Time Updated - DateTimeField
+
+Voice Actor
+    X Name - CharField (100)
+    - Summary - TextField
+    - Image - URLField (500)
+    - Date of Birth - DateField
+    - Date of Death - DateField
+    ----- META -----
+    X Time Created - DateTimeField
+    X Time Updated - DateTimeField
 
 Team
     X Name - CharField (100)
@@ -121,9 +131,10 @@ Team
     - Base - ForeignKey (Base)
     - Logo - URLField (500)
     - Disbanded - BooleanField
-    - Characters - ManyToManyField (Character)
+    X Characters - ManyToManyField (Character)
     ----- META -----
     X Time Created - DateTimeField
+    X Time Updated - DateTimeField
 
 Base
     X Nation - CharField (100)
@@ -131,14 +142,17 @@ Base
     - Name - CharField (100)
     ----- META -----
     X Time Created - DateTimeField
+    X Time Updated - DateTimeField
 
 Creator
     X Name - CharField (150)
     - Summary - TextField
+    - Image - URLField (500)
     - Date of Birth - DateField
     - Date of Death - DateField
     ----- META -----
     X Time Created - DateTimeField
+    X Time Updated - DateTimeField
 
 Genre
     X Name
