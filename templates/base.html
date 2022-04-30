@@ -52,6 +52,15 @@
                         <a class="nav-link" href="/">Users</a>
                     </li>
                 </ul>
+                <div class="navbar-nav">
+                    {% if not user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+                    {% else %}
+                    <p class="nav-link" style="margin: 0px;">{{ user.username }}</p>
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </nav>

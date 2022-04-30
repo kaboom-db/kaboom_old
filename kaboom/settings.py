@@ -38,11 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_bleach',
+    'crispy_forms',
     'accounts.apps.AccountsConfig',
     'web.apps.WebConfig',
     'common.apps.CommonConfig',
     'comics.apps.ComicsConfig'
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -144,3 +147,11 @@ BLEACH_ALLOWED_PROTOCOLS = [
 ]
 BLEACH_STRIP_TAGS = True
 BLEACH_STRIP_COMMENTS = False
+
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+DEFAULT_FROM_EMAIL = "kaboom@localhost"
+EMAIL_FILE_PATH = str(BASE_DIR / 'sent_emails')

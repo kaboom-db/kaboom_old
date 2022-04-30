@@ -3,107 +3,43 @@
 {% load markdown_extras %}
 {% load bleach_tags %}
 
-{% block title %}Kaboom - Profile{% endblock %}
-
 {% block content %}
 <style>
     img {
         max-width: 100%;
         height: auto;
     }
-
-    .card-image {
-        width: auto !important;
-        height: 500px !important;
-    }
 </style>
 
-<div class="header">
-    <center>
-        <div class="pfp-header">
-            <img src="{{ image }}" alt="profile" class="pfp">
-            <h1>{{ user.username }}</h1>
-        </div>
-    </center>
-</div>
 <div class="section container">
-    <h3>Your account details</h3>
-    <br>
-    <div>
-        <div class="card card-body">
-            <p><b>Biography: </b></p>
-            <p id="markdown">{{ user.bio | markdown | bleach }}</p>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card mb-3" style="max-width: auto; height: auto;">
-                    <div class="card-header">Cartoons</div>
-                    <div class="card-body text-dark">
-                        {% if user_cartoons %}
-                        <ul>
-                            {% for cartoon in user_cartoons %}
-                            <li><a href="/v1/cartoons/series/{{ cartoon.series.id }}">{{ cartoon.series.name }}</a></li>
-                            {% endfor %}
-                        </ul>
-                        {% else %}
-                        <p>You have no subscribed cartoons.</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card mb-3" style="max-width: auto; height: auto;">
-                    <div class="card-header">Comics</div>
-                    <div class="card-body text-dark">
-                        {% if user_comics %}
-                        <ul>
-                            {% for comic in user_comics %}
-                            <li><a href="/v1/comics/series/{{ comic.series.id }}">{{ comic.series.series_name }}</a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        {% else %}
-                        <p>You have no subscribed comics.</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
-            <code><a data-bs-toggle="collapse" href="#collapseWatched" role="button" aria-expanded="false" aria-controls="collapseWatched">Last watched card</a> | <a data-bs-toggle="collapse" href="#collapseRead" role="button" aria-expanded="false" aria-controls="collapseRead">Last read card</a></code>
-            <div class="collapse" id="collapseWatched">
-                <div class="card card-body">
-                    {% if not user.private %}
-                    <img src="/" alt="Watched card" class="card-image">
+    <div class="row">
+        <div class="col-sm-6">
+            <!-- Profile -->
+            <div class="card mb-3" style="max-width: auto; height: auto;">
+                <div class="card-header cst-container">
+                    <img src="{{ image }}" alt="profile" class="pfp">
                     <br>
-                    <p>If you want to use this widget in your website/blog, add this code:</p>
-                    <pre>&lt;img src="https://kaboomdb.org/" alt="Watched card" /&gt;</pre>
-                    {% else %}
-                    <p>You cannot use Kaboom widgets as your account is private.</p>
-                    {% endif %}
+                    <h3>{{ user.username }}</h3>
                 </div>
-            </div>
-            <div class="collapse" id="collapseRead">
-                <div class="card card-body">
-                    {% if not user.private %}
-                    <img src="/" alt="Read card" class="card-image">
-                    <br>
-                    <p>If you want to use this card in your website/blog, add this code:</p>
-                    <pre>&lt;img src="https://kaboomdb.org/" alt="Read card" /&gt;</pre>
-                    {% else %}
-                    <p>You cannot use Kaboom widgets as your account is private.</p>
+                <div class="card-body text-dark">
+                    <p>{{ user.bio | markdown | bleach }}</p>
+                    <hr>
+                    <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+                    <a href="{% url 'password_reset' %}" class="btn btn-primary">Reset Password</a>
+                    {% if user.is_staff %}
+                    <a href="/admin" class="btn btn-primary">Kaboom Admin</a>
                     {% endif %}
                 </div>
             </div>
         </div>
-        <br>
+        <div class="col-sm-6">
+            <!-- Thoughts -->
+            <div class="card mb-3" style="max-width: auto; height: auto;">
+                <div class="card-header cst-container">
+                    Thoughts coming soon.
+                </div>
+            </div>
+        </div>
     </div>
-    <a href="/" class="btn btn-primary">Logout</a>
-    <a href="/" class="btn btn-primary">Reset Password</a>
-    {% if user.is_staff %}
-    <a href="/admin" class="btn btn-primary">Kaboom Admin</a>
-    {% endif %}
-    <a href="/" class="btn btn-primary">Cancel</a>
 </div>
 {% endblock %}
