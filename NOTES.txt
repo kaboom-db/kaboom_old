@@ -120,6 +120,7 @@ Team
     X Summary - TextField
     - Base - ForeignKey (Base)
     - Logo - URLField (500)
+    - Disbanded - BooleanField
     - Characters - ManyToManyField (Character)
     ----- META -----
     X Time Created - DateTimeField
