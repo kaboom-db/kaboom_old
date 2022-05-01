@@ -83,8 +83,11 @@
                         <div class="card-back card-text details">
                             <h5 class="card-text">{{ comic.name }}</h5>
                             {% if comic.publisher %}
-                            <p style="font-size: smaller; margin: 0px;"><a href="" class="link">{{ comic.publisher.name
-                                    }}</a></p>
+                            <p style="font-size: smaller; margin: 0px;">
+                                <a href="" class="link">
+                                    {{ comic.publisher.name }}
+                                </a>
+                            </p>
                             {% endif %}
                         </div>
                         <div class="card-gradient"
@@ -109,8 +112,11 @@
                     <div class="d-flex align-self-end flex-column w-100">
                         <div class="card-back card-text details">
                             <h5 class="card-text">{{ issue.name }}</h5>
-                            <p style="font-size: smaller; margin: 0px;"><a href="" class="link">{{
-                                    issue.comic_series.name }}</a></p>
+                            <p style="font-size: smaller; margin: 0px;">
+                                <a href="" class="link">
+                                    {{ issue.comic_series.name }}
+                                </a>
+                            </p>
                         </div>
                         <div class="card-gradient"
                             style="background: linear-gradient(rgba(255, 95, 109, 0.1) 0%, rgba(255, 195, 113, 0.7) 77%);">
