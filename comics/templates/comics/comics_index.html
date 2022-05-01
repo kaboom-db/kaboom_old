@@ -74,7 +74,7 @@
             {% for comic in last_created %}
             <div class="card card-tracker">
                 <img src="{{ comic.cover_image }}" class="card-img" alt="{{ comic.name }} poster">
-                <a href="" class="stretched-link">{{ comic.name }}</a>
+                <a href="{% url 'comic' comic.id %}" class="stretched-link">{{ comic.name }}</a>
                 <div class="card-img-overlay d-flex card-bottom-panel">
                     <div class="d-flex align-self-end flex-column w-100">
                         <div class="card-format">

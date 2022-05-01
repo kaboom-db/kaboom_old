@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from . import models
 
@@ -16,3 +16,11 @@ def comics_index(request):
         'publishers': publishers
     }
     return render(request, 'comics/comics_index.html', context=ctx)
+
+def comic_detail(request, comic_id):
+    comic = get_object_or_404(models.Comic, id=comic_id)
+    ctx = {
+        'active_comics': 'active',
+        'comic': comic
+    }
+    return render(request, 'comics/comic_detail.html', context=ctx)

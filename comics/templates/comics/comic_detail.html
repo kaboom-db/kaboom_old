@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Kaboom - {{ comic.name }}{% endblock %}
+
+{% block content %}
+<div class="header-img-container center" style="background-image: url('{{ comic.banner_image }}');">
+    <div class="media-detail" style="background-color: white;">
+        <img src="{{ comic.cover_image }}" alt="{{ comic.name }} poster" class="media-poster">
+        <div class="media-content">
+            <h3>
+                {{ comic.name }}
+            </h3>
+        </div>
+    </div>
+</div>
+<div class="container section">
+
+</div>
+{% endblock %}
