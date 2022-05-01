@@ -14,7 +14,7 @@ class Publisher(models.Model):
 
     def save(self, *args, **kwargs):
         self.time_updated = timezone.now()
-        super(Comic, self).save(*args, **kwargs)
+        super(Publisher, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -79,7 +79,7 @@ class Issue(models.Model):
 
     def save(self, *args, **kwargs):
         self.time_updated = timezone.now()
-        super(Comic, self).save(*args, **kwargs)
+        super(Issue, self).save(*args, **kwargs)
     
     def __str__(self):
         return self.name

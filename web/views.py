@@ -27,7 +27,7 @@ def home(request):
 @login_required
 def dashboard(request):
     image = get_user_image(request.user.email)
-    return render(request, 'web/dashboard.html', {'image': image, 'active_home': 'active'})
+    return render(request, 'web/dashboard.html', {'image': image, 'active_home': 'active', 'header': 'Dashboard'})
 
 class SignUpView(generic.CreateView):
     form_class = SignUpForm

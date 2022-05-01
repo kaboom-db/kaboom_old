@@ -18,8 +18,8 @@
         {{ form|crispy }}
         <button type="submit" class="btn btn-primary">Sign Up</button>
         <a href="{% url 'home' %}" class="btn btn-primary">Cancel</a>
-        <code><a href="{% url 'login' %}">Login instead</a></code>
+        <code><a href="{% url 'login' %}" class="link">Login instead</a></code>
     </form>
-    <code>By signing up to Kaboom, you accept our <a href="/tocs">Terms and Conditions</a>.</code>
+    <code>By signing up to Kaboom, you accept our <a href="/tocs" class="link">Terms and Conditions</a>.</code>
 </div>
 {% endblock %}

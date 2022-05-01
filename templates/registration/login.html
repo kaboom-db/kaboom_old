@@ -18,7 +18,7 @@
         {{ form|crispy }}
         <button type="submit" class="btn btn-primary">Log In</button>
         <a href="{% url 'home' %}" class="btn btn-primary">Cancel</a>
-        <code>New here? <a href="{% url 'signup' %}">Signup</a>!</code>
+        <code>New here? <a href="{% url 'signup' %}" class="link">Signup</a>!</code>
     </form>
 </div>
 {% endblock %}

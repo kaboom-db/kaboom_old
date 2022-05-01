@@ -24,6 +24,8 @@
                 <div class="card-body text-dark">
                     <p>{{ user.bio | markdown | bleach }}</p>
                     <hr>
+                    <p>Member since {{ user.date_joined }}</p>
+                    <p>Last logged in at {{ user.last_login }}</p>
                     <p><span title="Only you can see this">🔒</span> <b>Email: </b> {{ user.email }}</p>
                     {% if user.private == False %}
                     <p><b>Private: </b>No</p>
@@ -32,11 +34,16 @@
                     {% endif %}
                     <hr>
                     <a href="/" class="btn btn-primary">Edit Account</a>
-                    <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
-                    <a href="{% url 'password_reset' %}" class="btn btn-primary">Reset Password</a>
+                    <!-- <a href="{% url 'password_reset' %}" class="btn btn-primary">Reset Password</a> -->
                     {% if user.is_staff %}
                     <a href="/admin" class="btn btn-primary">Kaboom Admin</a>
                     {% endif %}
+                </div>
+            </div>
+            <!-- Submissions -->
+            <div class="card mb-3" style="max-width: auto; height: auto;">
+                <div class="card-header cst-container">
+                    Submissions coming soon.
                 </div>
             </div>
         </div>

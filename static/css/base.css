@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
 body {
     min-height: 100vh;
@@ -6,11 +6,20 @@ body {
     flex-direction: column;
 }
 
+p, h1, h2, h3, h4, h5, h6, a {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+    font-weight: bold !important;
+}
+
 .header {
     padding: 50px;
     font-family: 'Montserrat', sans-serif;
-    background: rgb(255,95,109);
-    background: linear-gradient(90deg, rgba(255,95,109,1) 0%, rgba(255,195,113,1) 77%);
+    font-weight: bold !important;
+    background: rgb(255, 95, 109);
+    background: linear-gradient(90deg, rgba(255, 95, 109, 1) 0%, rgba(255, 195, 113, 1) 77%);
 }
 
 .flex {
@@ -67,22 +76,25 @@ body {
     color: black !important;
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-    background-color: rgb(255,95,109) !important;
-    border-color: rgb(255,95,109) !important;
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+    background-color: rgb(255, 95, 109) !important;
+    border-color: rgb(255, 95, 109) !important;
     color: white !important;
     margin-top: 5px !important;
     margin-bottom: 5px !important;
 }
 
 ::-moz-selection {
-    color: rgb(255,95,109);
-    background-color: rgba(255,195,113,1);
+    color: rgb(255, 95, 109);
+    background-color: rgba(255, 195, 113, 1);
 }
 
 ::selection {
-    color: rgb(255,95,109);
-    background-color: rgba(255,195,113,1);
+    color: rgb(255, 95, 109);
+    background-color: rgba(255, 195, 113, 1);
 }
 
 .border-dark {
@@ -95,11 +107,15 @@ body {
 }
 
 .form-control:focus {
-    border-color: rgb(255,95,109) !important;
+    border-color: rgb(255, 95, 109) !important;
     box-shadow: 0 0 0 0.25rem rgb(255 95 109 / 25%) !important;
 }
 
-.btn-check:active+.btn-primary:focus, .btn-check:checked+.btn-primary:focus, .btn-primary.active:focus, .btn-primary:active:focus, .show>.btn-primary.dropdown-toggle:focus {
+.btn-check:active+.btn-primary:focus,
+.btn-check:checked+.btn-primary:focus,
+.btn-primary.active:focus,
+.btn-primary:active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
     box-shadow: 0 0 0 0.25rem rgb(255 95 109 / 25%) !important;
 }
 
@@ -107,40 +123,42 @@ body {
     margin-bottom: 15px;
 }
 
-.btn-check:focus+.btn-primary, .btn-primary:focus {
+.btn-check:focus+.btn-primary,
+.btn-primary:focus {
     box-shadow: 0 0 0 0.25rem rgb(255 95 109 / 25%) !important;
 }
 
 pre {
     padding: 15px;
-    border: rgb(255,95,109) 1px solid;
+    border: rgb(255, 95, 109) 1px solid;
     border-radius: 5px;
 }
 
 .carouselCards {
-    background-color: rgba(255,195,113,1) !important;
+    background-color: rgba(255, 195, 113, 1) !important;
 }
 
 .bg-kaboom {
-    background: linear-gradient(90deg, rgba(255,95,109,1) 0%, rgba(255,195,113,1) 77%);
+    background: linear-gradient(90deg, rgba(255, 95, 109, 1) 0%, rgba(255, 195, 113, 1) 77%);
 }
 
 /* width */
 ::-webkit-scrollbar {
     width: 4px;
+    height: 4px;
 }
-  
+
 /* Track */
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
-   
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: rgb(255,95,109); 
+    background: rgb(255, 95, 109);
 }
-  
+
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(255,95,109); 
+    background: rgb(255, 95, 109);
 }

@@ -12,7 +12,7 @@ class Base(models.Model):
 
     def save(self, *args, **kwargs):
         self.time_updated = timezone.now()
-        super(Comic, self).save(*args, **kwargs)
+        super(Base, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -28,7 +28,7 @@ class VoiceActor(models.Model):
 
     def save(self, *args, **kwargs):
         self.time_updated = timezone.now()
-        super(Comic, self).save(*args, **kwargs)
+        super(VoiceActor, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -58,7 +58,7 @@ class Character(models.Model):
 
     def save(self, *args, **kwargs):
         self.time_updated = timezone.now()
-        super(Comic, self).save(*args, **kwargs)
+        super(Character, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -75,7 +75,7 @@ class Team(models.Model):
 
     def save(self, *args, **kwargs):
         self.time_updated = timezone.now()
-        super(Comic, self).save(*args, **kwargs)
+        super(Team, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -91,7 +91,7 @@ class Creator(models.Model):
 
     def save(self, *args, **kwargs):
         self.time_updated = timezone.now()
-        super(Comic, self).save(*args, **kwargs)
+        super(Creator, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
