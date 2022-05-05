@@ -72,7 +72,7 @@
     <div class="testimonial-group">
         <div class="row flex-nowrap">
             {% for comic in last_created %}
-            <div class="card card-tracker">
+            <div class="card card-tracker bg-light">
                 <img src="{{ comic.cover_image }}" class="card-img" alt="{{ comic.name }} poster">
                 <a href="{% url 'comic' comic.id %}" class="stretched-link">{{ comic.name }}</a>
                 <div class="card-img-overlay d-flex card-bottom-panel">
@@ -105,7 +105,7 @@
     <div class="testimonial-group">
         <div class="row flex-nowrap">
             {% for issue in new_issues %}
-            <div class="card card-tracker">
+            <div class="card card-tracker bg-light">
                 <img src="{{ issue.cover_image }}" class="card-img" alt="{{ issue.name }} poster">
                 <a href="" class="stretched-link">{{ issue.name }}</a>
                 <div class="card-img-overlay d-flex card-bottom-panel">
