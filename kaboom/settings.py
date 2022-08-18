@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'accounts.apps.AccountsConfig',
     'web.apps.WebConfig',
+    'comics.apps.ComicsConfig',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
