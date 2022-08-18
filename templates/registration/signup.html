@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Kaboom - Sign Up{% endblock %}
+
+{% block content %}
+<div class="header">
+    <center>
+        <h2>Sign up</h2>
+    </center>
+</div>
+<div class="section container">
+    <h3>Hi 👋, let's get you started!</h3>
+    <br>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <a href="{% url 'home' %}" class="btn btn-primary">Cancel</a>
+        <code><a href="{% url 'login' %}" class="link">Login instead</a></code>
+    </form>
+    <code>By signing up to Kaboom, you accept our <a href="/tocs" class="link">Terms and Conditions</a>.</code>
+</div>
+{% endblock %}
