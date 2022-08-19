@@ -58,6 +58,24 @@ h1 {
     margin: 10px;
 }
 
+.kaboom-badge {
+    padding: 10px !important;
+    background: linear-gradient(90deg, rgba(255, 95, 109, 1) 0%, rgba(255, 195, 113, 1) 77%);
+    color: rgb(19, 19, 19) !important;
+    border-radius: 10px !important;
+}
+
+.info-card-body {
+    background-color: white;
+    border-radius: 10px;
+}
+
+.info-card {
+    padding: 5px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, rgba(255, 95, 109, 1) 0%, rgba(255, 195, 113, 1) 77%);
+}
+
 .cst-container {
     display: flex;
     flex-direction: column;
@@ -149,6 +167,10 @@ pre {
     background: linear-gradient(90deg, rgba(255, 95, 109, 1) 0%, rgba(255, 195, 113, 1) 77%);
 }
 
+.fore-kaboom {
+    color: rgb(19, 19, 19) !important;
+}
+
 .header-img-container {
     background-position: center;
     background-repeat: no-repeat;
@@ -196,6 +218,10 @@ pre {
 .space-between {
     display: flex;
     justify-content: space-between;
+}
+
+.spacer {
+    height: 25px;
 }
 
 /* width */

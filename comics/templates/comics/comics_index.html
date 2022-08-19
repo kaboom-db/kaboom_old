@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}Kaboom - Comics{% endblock %}
+
+{% block content %}
+<style>
+    .card-tracker {
+        height: 310px;
+        width: 310px;
+        overflow: hidden;
+        margin-right: 5px !important;
+        padding: 0px !important;
+        border-radius: 10px;
+    }
+
+    .details {
+        white-space: normal;
+    }
+
+    .card-tracker .card-text {
+        z-index: 4;
+        position: relative;
+    }
+
+    .card-tracker .card-gradient {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    .testimonial-group>.row {
+        margin: 0px !important;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .card-tracker .card-format {
+        position: absolute;
+        min-width: 38px;
+        text-align: center;
+        padding: 2px 5px;
+        top: 5px;
+        left: 5px;
+    }
+
+    .itm-img-container {
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .itm-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .pub-div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+    }
+</style>
+
+<div class="container section">
+    <h3 class="kaboom-badge badge">Newly Added Comics</h3>
+    <div class="testimonial-group">
+        <div class="row flex-nowrap">
+            {% for comic in last_created %}
+            <div class="card card-tracker bg-light">
+                <img src="{{ comic.cover_image }}" class="card-img" alt="{{ comic.name }} poster">
+                <a href="{% url 'comic' comic.id %}" class="stretched-link">{{ comic.name }}</a>
+                <div class="card-img-overlay d-flex card-bottom-panel">
+                    <div class="d-flex align-self-end flex-column w-100">
+                        <div class="card-format">
+                            <span class="badge bg-kaboom text-dark">{{ comic.media_format }}</span>
+                        </div>
+                        <div class="card-back card-text details">
+                            <h5 class="card-text">{{ comic.name }}</h5>
+                            {% if comic.publisher %}
+                            <p style="font-size: smaller; margin: 0px;">
+                                <a href="" class="link">
+                                    {{ comic.publisher.name }}
+                                </a>
+                            </p>
+                            {% endif %}
+                        </div>
+                        <div class="card-gradient"
+                            style="background: linear-gradient(rgba(255, 95, 109, 0.1) 0%, rgba(255, 195, 113, 0.7) 77%);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="container section">
+    <h3 class="badge kaboom-badge">Publishers</h3>
+    <div class="row">
+        {% for publisher in publishers %}
+        <div class="col-sm-4" style="padding: 12px !important;">
+            <a href="" class="card-link" title="{{ publisher.name }}">
+                <div class="info-card">
+                    <div class="info-card-body">
+                        <div class="pub-div">
+                            <div class="itm-img-container">
+                                <img src="{{ publisher.logo }}" alt="{{ publisher.name }} logo" class="itm-img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
