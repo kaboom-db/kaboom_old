@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load static %}
 {% load bleach_tags %}
 
 {% block title %}Kaboom - {{ comic.name }}{% endblock %}
@@ -71,11 +72,6 @@
         object-fit: cover;
     }
 
-    .info-row {
-        background-color: white;
-        border-radius: 10px;
-    }
-
     .character-name {
         height: 2em;
         display: block; /* Fallback for non-webkit */
@@ -85,16 +81,6 @@
         overflow: hidden;
         text-overflow: ellipsis !important;
     }
-
-    @media only screen and (min-width: 575px) {
-
-        /* For desktop: */
-        div.sticky {
-            position: -webkit-sticky;
-            position: sticky;
-            top: 83px;
-        }
-    }
 </style>
 
 <div class="container section">
@@ -103,7 +89,11 @@
             <div class="sticky">
                 <center>
                     <div class="comic-cover-wrapper">
+                        {% if comic.cover_image %}
                         <img src="{{ comic.cover_image }}" alt="{{ comic.name }} cover" height="300px" class="comic-cover">
+                        {% else %}
+                        <img src="{% static 'images/noimage.png' %}" alt="No Image" height="300px" class="comic-cover">
+                        {% endif %}
                     </div>
                 </center>
                 <div class="spacer"></div>
@@ -175,10 +165,14 @@
             <h5 id="comic-details"><span class="badge kaboom-badge fore-kaboom">Characters</span></h5>
             <div class="flex">
                 {% for character in characters %}
-                <a href="/" class="link char" title="{{ character.name }}">
+                <a href="{% url 'character' character.id %}" class="link char" title="{{ character.name }}">
                     <div class="info-card char-result">
                         <div class="char-img-container">
+                            {% if character.image %}
                             <img src="{{ character.image }}" alt="{{ character.name }} image" class="char-img">
+                            {% else %}
+                            <img src="{% static 'images/noimage.png' %}" alt="No Image" class="char-img">
+                            {% endif %}
                         </div>
                         <div class="card-body info-card-body">
                             <div class="character-name">

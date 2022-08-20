@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}Kaboom - Comics{% endblock %}
 
 {% block content %}
@@ -69,12 +71,16 @@
 </style>
 
 <div class="container section">
-    <h3 class="kaboom-badge badge">Newly Added Comics</h3>
+    <h5 id="comic-details"><span class="badge kaboom-badge fore-kaboom">Newly Added Comics</span></h5>
     <div class="testimonial-group">
         <div class="row flex-nowrap">
             {% for comic in last_created %}
             <div class="card card-tracker bg-light">
+                {% if comic.cover_image %}
                 <img src="{{ comic.cover_image }}" class="card-img" alt="{{ comic.name }} poster">
+                {% else %}
+                <img src="{% static 'images/noimage.png' %}" alt="No Image" class="card-img">
+                {% endif %}
                 <a href="{% url 'comic' comic.id %}" class="stretched-link">{{ comic.name }}</a>
                 <div class="card-img-overlay d-flex card-bottom-panel">
                     <div class="d-flex align-self-end flex-column w-100">
@@ -102,10 +108,10 @@
     </div>
 </div>
 <div class="container section">
-    <h3 class="badge kaboom-badge">Publishers</h3>
+    <h5 id="comic-details"><span class="badge kaboom-badge fore-kaboom">Publishers</span></h5>
     <div class="row">
         {% for publisher in publishers %}
-        <div class="col-sm-4" style="padding: 12px !important;">
+        <div class="col-sm-4" style="padding: 12px !important; padding-top: 0px !important;">
             <a href="" class="card-link" title="{{ publisher.name }}">
                 <div class="info-card">
                     <div class="info-card-body">

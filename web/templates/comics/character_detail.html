@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load bleach_tags %}
+
+{% block title %}Kaboom - {{ character.name }}{% endblock %}
+
+{% block content %}
+<style>
+    th {
+        text-align: left;
+    }
+
+    .character-name, .character-detail, .kaboom-badge, .genre {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold !important;
+    }
+
+    .character-cover-wrapper {
+        padding: 5px;
+        display: inline-block;
+        border-radius: 10px;
+        background: linear-gradient(90deg, rgba(255, 95, 109, 1) 0%, rgba(255, 195, 113, 1) 77%);
+    }
+
+    .character-cover {
+        border-radius: 10px;
+    }
+
+    .com {
+        margin-right: 17px !important;
+        margin-bottom: 17px !important;
+    }
+
+    .com-result {
+        height: 100%;
+        width: 150px;
+    }
+
+    .com-img-container {
+        height: 150px;
+        overflow: hidden;
+        padding-bottom: 5px;
+    }
+
+    .com-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        object-fit: cover;
+    }
+
+    .comic-name {
+        height: 2em;
+        display: block; /* Fallback for non-webkit */
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis !important;
+    }
+</style>
+
+<div class="container section">
+    <div class="row">
+        <div class="col-sm-4 text-center">
+            <div class="sticky">
+                <center>
+                    <div class="character-cover-wrapper">
+                        {% if character.image %}
+                        <img src="{{ character.image }}" alt="{{ character.name }} cover" height="300px" class="character-cover">
+                        {% else %}
+                        <img src="{% static 'images/noimage.png' %}" alt="No Image" height="300px" class="character-cover">
+                        {% endif %}
+                    </div>
+                </center>
+                <div class="spacer"></div>
+                <h3 class="character-name">{{ character.name }}</h3>
+                {% if character.alias %}
+                <h6>{{ character.alias }}</h6>
+                {% endif %}
+                <table class="table">
+                    <tbody>
+                        {% if character.intelligence %}
+                        <tr>
+                            <th scope="row">Intelligence</th>
+                            <td>{{ character.intelligence}}</td>
+                        </tr>
+                        {% endif %}
+                        {% if character.strength %}
+                        <tr>
+                            <th scope="row">Strength</th>
+                            <td>{{ character.strength}}</td>
+                        </tr>
+                        {% endif %}
+                        {% if character.speed %}
+                        <tr>
+                            <th scope="row">Speed</th>
+                            <td>{{ character.speed}}</td>
+                        </tr>
+                        {% endif %}
+                        {% if character.durability %}
+                        <tr>
+                            <th scope="row">Durability</th>
+                            <td>{{ character.durability}}</td>
+                        </tr>
+                        {% endif %}
+                        {% if character.power %}
+                        <tr>
+                            <th scope="row">Power</th>
+                            <td>{{ character.power}}</td>
+                        </tr>
+                        {% endif %}
+                        {% if character.combat %}
+                        <tr>
+                            <th scope="row">Combat</th>
+                            <td>{{ character.combat}}</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <h5 id="character-details"><span class="badge kaboom-badge fore-kaboom">Character Details</span></h5>
+            <div class="info-card">
+                <div class="flex info-row">
+                    {% if character.status %}
+                    <div class="card-body info-card-body text-center">
+                        <h5>STATUS</h5>
+                        <p class="character-detail" id="character-status" style="margin-bottom: 0px;">Click to show</p>
+                    </div>
+                    {% endif %}
+                    {% if character.alignment %}
+                    <div class="card-body info-card-body text-center">
+                        <h5>ALIGNMENT</h5>
+                        <p class="character-detail" id="character-alignment" style="margin-bottom: 0px;">Click to show</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="info-card">
+                <div class="card-body info-card-body">
+                    <p class="character-description" style="margin-bottom: 0px;">{{ character.description | bleach }}</p>
+                </div>
+            </div>
+            <div class="spacer"></div>
+            {% if comics %}
+            <h5 id="comics"><span class="badge kaboom-badge fore-kaboom">Comics</span></h5>
+            <div class="flex">
+                {% for comic in comics %}
+                <a href="{% url 'comic' comic.id %}" class="link com" title="{{ comic.name }}">
+                    <div class="info-card com-result">
+                        <div class="com-img-container">
+                            <img src="{{ comic.cover_image }}" alt="{{ comic.name }} image" class="com-img">
+                        </div>
+                        <div class="card-body info-card-body">
+                            <div class="comic-name">
+                                <center>
+                                    <h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ comic.name }}</h5>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% if character.alignment %}
+<script>
+    // Script to show / hide spoiler for alignment
+    alignmentElement = document.getElementById('character-alignment');
+    alignment = '{{ character.alignment }}';
+    show = false;
+
+    alignmentElement.addEventListener('click', () => {
+        if (show === false) {
+            // We want to show the text
+            alignmentElement.innerText = alignment;
+            show = !show;
+        } else {
+            alignmentElement.innerText = 'Click to show';
+            show = !show;
+        }
+    });
+</script>
+{% endif %}
+
+{% if character.status %}
+<script>
+    // Script to show / hide spoiler for status
+    statusElement = document.getElementById('character-status');
+    status = '{{ character.status }}';
+    show = false;
+
+    statusElement.addEventListener('click', () => {
+        if (show === false) {
+            // We want to show the text
+            statusElement.innerText = status;
+            show = !show;
+        } else {
+            statusElement.innerText = 'Click to show';
+            show = !show;
+        }
+    });
+</script>
+{% endif %}
+
+{% endblock %}

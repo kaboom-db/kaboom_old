@@ -76,6 +76,11 @@ h1 {
     background: linear-gradient(90deg, rgba(255, 95, 109, 1) 0%, rgba(255, 195, 113, 1) 77%);
 }
 
+.info-row {
+    background-color: white;
+    border-radius: 10px;
+}
+
 .cst-container {
     display: flex;
     flex-direction: column;
@@ -243,4 +248,14 @@ pre {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(255, 95, 109);
+}
+
+@media only screen and (min-width: 575px) {
+
+    /* For desktop: */
+    div.sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 83px;
+    }
 }
