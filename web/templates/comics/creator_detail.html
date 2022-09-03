@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load bleach_tags %}
+
+{% block title %}Kaboom - {{ creator.name }}{% endblock %}
+
+{% block content %}
+<div class="container section">
+    <div class="row">
+        <div class="col-sm-4 text-center">
+            <div class="sticky">
+                <center>
+                    <div class="main-image-wrapper">
+                        {% if creator.image %}
+                        <img src="{{ creator.image }}" alt="{{ creator.image }} image" class="main-image generic-main-image">
+                        {% else %}
+                        <img src="{% static 'images/noimage.png' %}" alt="No Image" class="main-image comic-cover">
+                        {% endif %}
+                    </div>
+                </center>
+                <div class="spacer"></div>
+                <h3 class="item-name">{{ creator.name }}</h3>
+                {% if creator.date_of_birth %}
+                <h6><b>Birthday</b>: {{ creator.date_of_birth }} ({{ age }})</h6>
+                {% endif %}
+                {% if creator.date_of_death %}
+                <h6><b>Death</b>: {{ creator.date_of_death }}</h6>
+                {% endif %}
+                <div class="spacer"></div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <h5 id="creator-details"><span class="badge kaboom-badge fore-kaboom">Creator Details</span></h5>
+            <div class="info-card">
+                <div class="card-body info-card-body">
+                    <p class="creator-description" style="margin-bottom: 0px;">{{ creator.description | bleach }}</p>
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <h5 id="comics"><span class="badge kaboom-badge fore-kaboom">Comics</span></h5>
+            {% if comics %}
+            <div class="flex">
+                {% for comic in comics %}
+                <a href="{% url 'comic' comic.id comic.slug %}" class="link sm-card-link" title="{{ comic.name }} ({{ comic.date_started.year }})">
+                    <div class="info-card sm-card-result">
+                        <div class="sm-card-img-container">
+                            <img src="{{ comic.cover_image }}" alt="{{ comic.name }} image" class="sm-card-img">
+                        </div>
+                        <div class="card-body info-card-body">
+                            <div class="sm-card-name">
+                                <center>
+                                    <h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ comic.name }}</h5>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

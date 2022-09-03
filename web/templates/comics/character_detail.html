@@ -6,77 +6,21 @@
 {% block title %}Kaboom - {{ character.name }}{% endblock %}
 
 {% block content %}
-<style>
-    th {
-        text-align: left;
-    }
-
-    .character-name, .character-detail, .kaboom-badge, .genre {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: bold !important;
-    }
-
-    .character-cover-wrapper {
-        padding: 5px;
-        display: inline-block;
-        border-radius: 10px;
-        background: linear-gradient(90deg, rgba(255, 95, 109, 1) 0%, rgba(255, 195, 113, 1) 77%);
-    }
-
-    .character-cover {
-        border-radius: 10px;
-    }
-
-    .com {
-        margin-right: 17px !important;
-        margin-bottom: 17px !important;
-    }
-
-    .com-result {
-        height: 100%;
-        width: 150px;
-    }
-
-    .com-img-container {
-        height: 150px;
-        overflow: hidden;
-        padding-bottom: 5px;
-    }
-
-    .com-img {
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
-        margin-bottom: 5px;
-        object-fit: cover;
-    }
-
-    .comic-name {
-        height: 2em;
-        display: block; /* Fallback for non-webkit */
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis !important;
-    }
-</style>
-
 <div class="container section">
     <div class="row">
         <div class="col-sm-4 text-center">
             <div class="sticky">
                 <center>
-                    <div class="character-cover-wrapper">
+                    <div class="main-image-wrapper">
                         {% if character.image %}
-                        <img src="{{ character.image }}" alt="{{ character.name }} cover" height="300px" class="character-cover">
+                        <img src="{{ character.image }}" alt="{{ character.name }} cover" class="main-image generic-main-image">
                         {% else %}
-                        <img src="{% static 'images/noimage.png' %}" alt="No Image" height="300px" class="character-cover">
+                        <img src="{% static 'images/noimage.png' %}" alt="No Image" class="main-image comic-cover">
                         {% endif %}
                     </div>
                 </center>
                 <div class="spacer"></div>
-                <h3 class="character-name">{{ character.name }}</h3>
+                <h3 class="item-name">{{ character.name }}</h3>
                 {% if character.alias %}
                 <h6>{{ character.alias }}</h6>
                 {% endif %}
@@ -129,13 +73,13 @@
                     {% if character.status %}
                     <div class="card-body info-card-body text-center">
                         <h5>STATUS</h5>
-                        <p class="character-detail" id="character-status" style="margin-bottom: 0px;">Click to show</p>
+                        <a href="#" class="item-detail link" id="character-status" style="margin-bottom: 0px;">Click to show</a>
                     </div>
                     {% endif %}
                     {% if character.alignment %}
                     <div class="card-body info-card-body text-center">
                         <h5>ALIGNMENT</h5>
-                        <p class="character-detail" id="character-alignment" style="margin-bottom: 0px;">Click to show</p>
+                        <a href="#" class="item-detail link" id="character-alignment" style="margin-bottom: 0px;">Click to show</a>
                     </div>
                     {% endif %}
                 </div>
@@ -147,17 +91,39 @@
                 </div>
             </div>
             <div class="spacer"></div>
+            {% if teams %}
+            <h5 id="teams"><span class="badge kaboom-badge fore-kaboom">Teams</span></h5>
+            <div class="flex">
+                {% for team in teams %}
+                <a href="{% url 'team' team.id team.slug %}" class="link sm-card-link" title="{{ team.name }}">
+                    <div class="info-card sm-card-result">
+                        <div class="sm-card-img-container">
+                            <img src="{{ team.logo }}" alt="{{ team.name }} image" class="sm-card-img">
+                        </div>
+                        <div class="card-body info-card-body">
+                            <div class="sm-card-name">
+                                <center>
+                                    <h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ team.name }}</h5>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            <div class="spacer"></div>
+            {% endif %}
             {% if comics %}
             <h5 id="comics"><span class="badge kaboom-badge fore-kaboom">Comics</span></h5>
             <div class="flex">
                 {% for comic in comics %}
-                <a href="{% url 'comic' comic.id %}" class="link com" title="{{ comic.name }}">
-                    <div class="info-card com-result">
-                        <div class="com-img-container">
-                            <img src="{{ comic.cover_image }}" alt="{{ comic.name }} image" class="com-img">
+                <a href="{% url 'comic' comic.id comic.slug %}" class="link sm-card-link" title="{{ comic.name }} ({{ comic.date_started.year }})">
+                    <div class="info-card sm-card-result">
+                        <div class="sm-card-img-container">
+                            <img src="{{ comic.cover_image }}" alt="{{ comic.name }} image" class="sm-card-img">
                         </div>
                         <div class="card-body info-card-body">
-                            <div class="comic-name">
+                            <div class="sm-card-name">
                                 <center>
                                     <h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ comic.name }}</h5>
                                 </center>

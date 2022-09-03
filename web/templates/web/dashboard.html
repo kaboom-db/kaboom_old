@@ -1,8 +1,5 @@
 {% extends 'base.html' %}
 
-{% load markdown_extras %}
-{% load bleach_tags %}
-
 {% block content %}
 <style>
     img {
@@ -15,51 +12,37 @@
     <div class="row">
         <div class="col-sm-6">
             <!-- Profile -->
-            <div class="card mb-3" style="max-width: auto; height: auto;">
-                <div class="card-header cst-container">
+            <div class="info-card">
+                <div class="card-body info-card-body cst-container">
                     <img src="{{ image }}" alt="profile" class="pfp">
                     <br>
                     <h3>{{ user.username }}</h3>
-                </div>
-                <div class="card-body text-dark">
-                    {% if user.bio %}
-                    <p>{{ user.bio | markdown | bleach }}</p>
-                    <hr>
-                    {% endif %}
-                    <p>Member since {{ user.date_joined }}</p>
-                    <p>Last logged in at {{ user.last_login }}</p>
-                    <p><span title="Only you can see this">🔒</span> <b>Email: </b> {{ user.email }}</p>
-                    {% if user.private == False %}
-                    <p><b>Private: </b>No</p>
-                    {% else %}
-                    <p><b>Private: </b>Yes</p>
-                    {% endif %}
-                    <hr>
-                    <a href="/" class="btn btn-primary">Edit Account</a>
-                    <!-- <a href="{% url 'password_reset' %}" class="btn btn-primary">Reset Password</a> -->
                     {% if user.is_staff %}
                     <a href="/admin" class="btn btn-primary">Kaboom Admin</a>
                     {% endif %}
                 </div>
             </div>
-            <!-- Submissions -->
-            <div class="card mb-3" style="max-width: auto; height: auto;">
-                <div class="card-header cst-container">
-                    Submissions coming soon.
+            <div class="spacer"></div>
+            <!-- Progress -->
+            <div class="info-card">
+                <div class="card-body info-card-body cst-container">
+                    <p class="comic-description" style="margin-bottom: 0px;">Progress coming soon.</p>
                 </div>
             </div>
+            <div class="spacer"></div>
         </div>
         <div class="col-sm-6">
-            <!-- Progress -->
-            <div class="card mb-3" style="max-width: auto; height: auto;">
-                <div class="card-header cst-container">
-                    Progress coming soon.
+            <!-- Submissions -->
+            <div class="info-card">
+                <div class="card-body info-card-body cst-container">
+                    <p class="comic-description" style="margin-bottom: 0px;">Submissions coming soon.</p>
                 </div>
             </div>
-            <!-- Thoughts -->
-            <div class="card mb-3" style="max-width: auto; height: auto;">
-                <div class="card-header cst-container">
-                    Thoughts coming soon.
+            <div class="spacer"></div>
+            <!-- Comments -->
+            <div class="info-card">
+                <div class="card-body info-card-body cst-container">
+                    <p class="comic-description" style="margin-bottom: 0px;">Comments coming soon.</p>
                 </div>
             </div>
         </div>

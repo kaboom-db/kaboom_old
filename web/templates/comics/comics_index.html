@@ -35,6 +35,7 @@
 
     .testimonial-group>.row {
         margin: 0px !important;
+        padding-bottom: 10px;
         overflow-x: auto;
         white-space: nowrap;
     }
@@ -49,7 +50,7 @@
     }
 
     .itm-img-container {
-        width: 200px;
+        width: 100%;
         height: 200px;
         overflow: hidden;
     }
@@ -57,23 +58,15 @@
     .itm-img {
         width: 100%;
         height: 100%;
+        max-width: 200px;
         object-fit: contain;
-    }
-
-    .pub-div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        align-content: center;
-        text-align: center;
     }
 </style>
 
 <div class="container section">
     <h5 id="comic-details"><span class="badge kaboom-badge fore-kaboom">Newly Added Comics</span></h5>
     <div class="testimonial-group">
-        <div class="row flex-nowrap">
+        <div id="testimonial" class="row flex-nowrap">
             {% for comic in last_created %}
             <div class="card card-tracker bg-light">
                 {% if comic.cover_image %}
@@ -81,30 +74,47 @@
                 {% else %}
                 <img src="{% static 'images/noimage.png' %}" alt="No Image" class="card-img">
                 {% endif %}
-                <a href="{% url 'comic' comic.id %}" class="stretched-link">{{ comic.name }}</a>
+                <a href="{% url 'comic' comic.id comic.slug %}" class="stretched-link" title="{{ comic.name }} ({{ comic.date_started.year }})">{{ comic.name }}</a>
                 <div class="card-img-overlay d-flex card-bottom-panel">
                     <div class="d-flex align-self-end flex-column w-100">
                         <div class="card-format">
-                            <span class="badge bg-kaboom text-dark">{{ comic.media_format }}</span>
+                            <span class="badge bg-kaboom fore-kaboom">{{ comic.media_format }}</span>
                         </div>
                         <div class="card-back card-text details">
-                            <h5 class="card-text">{{ comic.name }}</h5>
+                            <h5 class="card-text fore-kaboom item-name">{{ comic.name }}</h5>
                             {% if comic.publisher %}
                             <p style="font-size: smaller; margin: 0px;">
-                                <a href="" class="link">
+                                <a href="{% url 'publisher' comic.publisher.id comic.publisher.slug %}" class="link">
                                     {{ comic.publisher.name }}
                                 </a>
                             </p>
                             {% endif %}
                         </div>
                         <div class="card-gradient"
-                            style="background: linear-gradient(rgba(255, 95, 109, 0.1) 0%, rgba(255, 195, 113, 0.7) 77%);">
+                            style="background: linear-gradient(rgba(255, 95, 109, 0.1) 0%, rgba(255, 95, 109, 0.7) 77%);">
                         </div>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
+        <div class="space-between">
+            <button id="btnLeft" style="border: none; background-color: white;"><h5><i class="fa-solid fa-arrow-left" style="color: rgba(255, 95, 109, 1);"></i></h5></button>
+            <button id="btnRight" style="border: none; background-color: white;"><h5><i class="fa-solid fa-arrow-right" style="color: rgba(255, 95, 109, 1);"></i></h5></button>
+        </div>
+        <script>
+            btnLeft = document.getElementById("btnLeft");
+            btnRight = document.getElementById("btnRight");
+
+            testimonial = document.getElementById("testimonial");
+
+            btnRight.onclick = function () {
+                testimonial.scrollLeft += 315;
+            }
+            btnLeft.onclick = function () {
+                testimonial.scrollLeft -= 315;
+            }
+        </script>
     </div>
 </div>
 <div class="container section">
@@ -112,10 +122,10 @@
     <div class="row">
         {% for publisher in publishers %}
         <div class="col-sm-4" style="padding: 12px !important; padding-top: 0px !important;">
-            <a href="" class="card-link" title="{{ publisher.name }}">
+            <a href="{% url 'publisher' publisher.id publisher.slug %}" class="card-link" title="{{ publisher.name }}">
                 <div class="info-card">
                     <div class="info-card-body">
-                        <div class="pub-div">
+                        <div class="center">
                             <div class="itm-img-container">
                                 <img src="{{ publisher.logo }}" alt="{{ publisher.name }} logo" class="itm-img">
                             </div>

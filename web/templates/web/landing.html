@@ -5,98 +5,51 @@
 {% block title %}Kaboom - The comic book and cartoon tracker{% endblock %}
 
 {% block content %}
-<style>
-    .app-result {
-        height: 100%;
-        width: 100px;
-        margin: 5px !important;
-    }
-
-    .app-img-container {
-        height: 100px;
-        overflow: hidden;
-    }
-
-    .app-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-</style>
-
 <div class="about container">
-    <h3>All your comics and cartoons in one place.</h3>
-    <p>Kaboom is a database of comics and cartoons. It contains information about comic issues, cartoon episodes,
+    <h3>All your comics in one place.</h3>
+    <p>Kaboom is a database of comics. It contains information about comic series, publishers,
         characters and so on. You can also create an
-        account and track the issues and episodes that you have
-        watched or read.</p>
+        account and track the issues that you have read.</p>
     <a href="{% url 'signup' %}" class="btn btn-primary">Create your account!</a>
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-sm-6">
-            <div class="card" style="width: auto;">
+        <div class="col-sm-6 landing-card">
+            <div class="info-card" style="width: auto;">
                 <div class="cst-container">
                     <h1>📚 {{num_of_comics}}</h1>
                 </div>
-                <div class="card-body">
+                <div class="card-body info-card-body">
                     <h5 class="card-title">Comics</h5>
                     <p class="card-text">We currently have {{num_of_comics}} comics in our database!</p>
                     <a href="/v1/comics" class="btn btn-primary" id="comic-link">Comics</a>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="card row-0" style="width: auto;">
-                <div class="cst-container">
-                    <h1>🐉 {{num_of_cartoons}}</h1>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Cartoons</h5>
-                    <p class="card-text">We currently have {{num_of_cartoons}} cartoons in our database!</p>
-                    <a href="/v1/cartoons" class="btn btn-primary" id="cartoon-link">Cartoons</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="card row-1" style="width: auto;">
+        <div class="col-sm-6 landing-card">
+            <div class="info-card" style="width: auto;">
                 <div class="cst-container">
                     <h1>😃 {{num_of_users}}</h1>
                 </div>
-                <div class="card-body">
+                <div class="card-body info-card-body">
                     <h5 class="card-title">Users</h5>
-                    <p class="card-text">Join {{num_of_users}} others in tracking their favourite comics and
-                        cartoons!</p>
-                    <a href="/" class="btn btn-primary">Join now</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="card row-1" style="width: auto;">
-                <div class="cst-container">
-                    <h1>🤔 {{num_of_thoughts}}</h1>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Thoughts</h5>
-                    <p class="card-text">{{num_of_thoughts}} thoughts have been written by users.</p>
-                    <a href="/" class="btn btn-primary">Write your own!</a>
+                    <p class="card-text">Join {{num_of_users}} others in tracking their favourite comics!</p>
+                    <a href="{% url 'signup' %}" class="btn btn-primary">Join now</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div class="apps section container">
-    <h3 id="apps-list">Apps</h3>
+    <h3 id="apps-list">Apps & Integrations</h3>
     <br>
     <div class="flex">
         <a href="/" class="link">
-            <div class="card app-result">
-                <div class="app-img-container">
-                    <img src="{% static 'images/logo.svg' %}" alt="logo" class="app-img">
+            <div class="info-card sm-card-result">
+                <div class="sm-card-img-container">
+                    <img src="{% static 'images/logo-black.svg' %}" alt="logo" class="sm-card-img">
                 </div>
-                <div class="card-body">
+                <div class="card-body info-card-body">
                     <center><h5 class="card-title" style="font-size: smaller; margin: 0px;">Kaboom Website</h5></center>
                 </div>
             </div>

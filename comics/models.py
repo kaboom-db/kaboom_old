@@ -1,12 +1,19 @@
 from django.db import models
+from django.utils.text import slugify
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 class Genre(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=200, blank=True, unique=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 class Creator(models.Model):
     name = models.CharField(max_length=150)
@@ -14,12 +21,18 @@ class Creator(models.Model):
     image = models.URLField(max_length=500, blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     date_of_death = models.DateField(blank=True, null=True)
+    slug = models.SlugField(max_length=200, blank=True)
     is_adult = models.BooleanField(default=False)
     time_created = models.DateTimeField(auto_now_add=True)
     time_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 class Character(models.Model):
     ALIGNMENT_CHOICES = (
@@ -46,12 +59,18 @@ class Character(models.Model):
     durability = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True, null=True)
     power = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True, null=True)
     combat = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True, null=True)
+    slug = models.SlugField(max_length=200, blank=True)
     is_adult = models.BooleanField(default=False)
     time_created = models.DateTimeField(auto_now_add=True)
     time_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 class Organisation(models.Model):
     name = models.CharField(max_length=100)
@@ -59,23 +78,35 @@ class Organisation(models.Model):
     logo = models.URLField(max_length=500, blank=True, null=True)
     disbanded = models.BooleanField(default=False)
     characters = models.ManyToManyField(Character, blank=True)
+    slug = models.SlugField(max_length=200, blank=True)
     is_adult = models.BooleanField(default=False)
     time_created = models.DateTimeField(auto_now_add=True)
     time_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 class Publisher(models.Model):
     name = models.CharField(max_length=100)
     logo = models.URLField(max_length=500, blank=True, null=True)
     website = models.URLField(max_length=250, blank=True, null=True)
+    slug = models.SlugField(max_length=200, blank=True)
     is_adult = models.BooleanField(default=False)
     time_created = models.DateTimeField(auto_now_add=True)
     time_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 class Comic(models.Model):
     MEDIA_STATUS_CHOICES = (
@@ -107,9 +138,18 @@ class Comic(models.Model):
     genres = models.ManyToManyField(Genre, blank=True)
     website = models.URLField(max_length=250, blank=True, null=True)
     links = models.TextField(blank=True, null=True)
+    slug = models.SlugField(max_length=200, blank=True)
     is_adult = models.BooleanField(default=False)
     time_created = models.DateTimeField(auto_now_add=True)
     time_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            if self.date_started:
+                self.slug = slugify(self.name + " " + str(self.date_started.year))
+            else:
+                self.slug = slugify(self.name)
+        super().save(*args, **kwargs)

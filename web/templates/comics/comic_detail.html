@@ -6,107 +6,30 @@
 {% block title %}Kaboom - {{ comic.name }}{% endblock %}
 
 {% block content %}
-<style>
-    .comic-name, .comic-detail, .kaboom-badge, .genre {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: bold !important;
-    }
-
-    .rating-green {
-        padding: 10px;
-        background-color: green;
-        color: rgb(19, 19, 19);
-        border-radius: 10px;
-    }
-
-    .rating-amber {
-        padding: 10px;
-        background-color: orange;
-        color: rgb(19, 19, 19);
-        border-radius: 10px;
-    }
-
-    .rating-red {
-        padding: 10px;
-        background-color: red;
-        color: rgb(19, 19, 19);
-        border-radius: 10px;
-    }
-
-    .comic-cover-wrapper {
-        padding: 5px;
-        display: inline-block;
-        border-radius: 10px;
-        background: linear-gradient(90deg, rgba(255, 95, 109, 1) 0%, rgba(255, 195, 113, 1) 77%);
-    }
-
-    .comic-cover {
-        border-radius: 10px;
-    }
-
-    .genre {
-        margin-right: 5px;
-    }
-
-    .char {
-        margin-right: 17px !important;
-        margin-bottom: 17px !important;
-    }
-
-    .char-result {
-        height: 100%;
-        width: 150px;
-    }
-
-    .char-img-container {
-        height: 150px;
-        overflow: hidden;
-        padding-bottom: 5px;
-    }
-
-    .char-img {
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
-        margin-bottom: 5px;
-        object-fit: cover;
-    }
-
-    .character-name {
-        height: 2em;
-        display: block; /* Fallback for non-webkit */
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis !important;
-    }
-</style>
-
 <div class="container section">
     <div class="row">
         <div class="col-sm-4 text-center">
             <div class="sticky">
                 <center>
-                    <div class="comic-cover-wrapper">
+                    <div class="main-image-wrapper">
                         {% if comic.cover_image %}
-                        <img src="{{ comic.cover_image }}" alt="{{ comic.name }} cover" height="300px" class="comic-cover">
+                        <img src="{{ comic.cover_image }}" alt="{{ comic.name }} cover" class="main-image comic-cover">
                         {% else %}
-                        <img src="{% static 'images/noimage.png' %}" alt="No Image" height="300px" class="comic-cover">
+                        <img src="{% static 'images/noimage.png' %}" alt="No Image" class="main-image comic-cover">
                         {% endif %}
                     </div>
                 </center>
                 <div class="spacer"></div>
-                <h3 class="comic-name">{{ comic.name }}</h3>
+                <h3 class="item-name">{{ comic.name }}</h3>
                 {% if comic.creator %}
-                <h6>{{ comic.creator }}</h6>
+                <a href="{% url 'creator' comic.creator.id comic.creator.slug %}" class="link"><h6>{{ comic.creator }}</h6></a>
                 {% endif %}
                 {% if comic.chapter_count %}
                 <h6>{{ comic.chapter_count }} chapters</h6>
                 {% endif %}
                 <div>
                     {% if comic.rating %}
-                    <h6 class="{{ rating_colour }} badge" title="Rating">{{ comic.rating }}</h6>
+                    <h6 class="{{ rating_colour }} rating badge" title="Rating">{{ comic.rating }}</h6>
                     {% endif %}
                 </div>
                 <a href="" class="btn btn-primary">Add to progress</a>
@@ -118,7 +41,7 @@
             {% if genres %}
             <div class="flex">
                 {% for genre in genres%}
-                <a href="">
+                <a href="{% url 'genre' genre.slug %}">
                     <h6><span class="badge bg-kaboom fore-kaboom genre">{{ genre.name }}</span></h6>
                 </a>
                 {% endfor %}
@@ -128,28 +51,28 @@
                 <div class="flex info-row">
                     <div class="card-body info-card-body text-center">
                         <h5>STATUS</h5>
-                        <p class="comic-detail" style="margin-bottom: 0px;">{{ comic.status }}</p>
+                        <p class="item-detail" style="margin-bottom: 0px;">{{ comic.status }}</p>
                     </div>
                     {% if comic.publisher %}
                     <div class="card-body info-card-body text-center">
                         <h5>PUBLISHER</h5>
-                        <p class="comic-detail" style="margin-bottom: 0px;">{{ comic.publisher }}</p>
+                        <p class="item-detail" style="margin-bottom: 0px;">{{ comic.publisher }}</p>
                     </div>
                     {% endif %}
                     <div class="card-body info-card-body text-center">
                         <h5>FORMAT</h5>
-                        <p class="comic-detail" style="margin-bottom: 0px;">{{ comic.media_format }}</p>
+                        <p class="item-detail" style="margin-bottom: 0px;">{{ comic.media_format }}</p>
                     </div>
                     {% if comic.date_started %}
                     <div class="card-body info-card-body text-center">
                         <h5>STARTED</h5>
-                        <p class="comic-detail" style="margin-bottom: 0px;">{{ comic.date_started }}</p>
+                        <p class="item-detail" style="margin-bottom: 0px;">{{ comic.date_started }}</p>
                     </div>
                     {% endif %}
                     {% if comic.date_finished %}
                     <div class="card-body info-card-body text-center">
                         <h5>ENDED</h5>
-                        <p class="comic-detail" style="margin-bottom: 0px;">{{ comic.date_finished }}</p>
+                        <p class="item-detail" style="margin-bottom: 0px;">{{ comic.date_finished }}</p>
                     </div>
                     {% endif %}
                 </div>
@@ -157,25 +80,25 @@
             <div class="spacer"></div>
             <div class="info-card">
                 <div class="card-body info-card-body">
-                    <p class="comic-description" style="margin-bottom: 0px;">{{ comic.description }}</p>
+                    <p class="comic-description" style="margin-bottom: 0px;">{{ comic.description | bleach }}</p>
                 </div>
             </div>
             <div class="spacer"></div>
             {% if characters %}
-            <h5 id="comic-details"><span class="badge kaboom-badge fore-kaboom">Characters</span></h5>
+            <h5 id="characters"><span class="badge kaboom-badge fore-kaboom">Characters</span></h5>
             <div class="flex">
                 {% for character in characters %}
-                <a href="{% url 'character' character.id %}" class="link char" title="{{ character.name }}">
-                    <div class="info-card char-result">
-                        <div class="char-img-container">
+                <a href="{% url 'character' character.id character.slug %}" class="link sm-card-link" title="{{ character.name }}">
+                    <div class="info-card sm-card-result">
+                        <div class="sm-card-img-container">
                             {% if character.image %}
-                            <img src="{{ character.image }}" alt="{{ character.name }} image" class="char-img">
+                            <img src="{{ character.image }}" alt="{{ character.name }} image" class="sm-card-img">
                             {% else %}
-                            <img src="{% static 'images/noimage.png' %}" alt="No Image" class="char-img">
+                            <img src="{% static 'images/noimage.png' %}" alt="No Image" class="sm-card-img">
                             {% endif %}
                         </div>
                         <div class="card-body info-card-body">
-                            <div class="character-name">
+                            <div class="sm-card-name">
                                 <center>
                                     <h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ character.name }}</h5>
                                 </center>
@@ -187,7 +110,7 @@
             </div>
             <div class="spacer"></div>
             {% endif %}
-            <h5 id="comic-details"><span class="badge kaboom-badge fore-kaboom">Comments</span></h5>
+            <h5 id="comments"><span class="badge kaboom-badge fore-kaboom">Comments</span></h5>
             <div class="info-card">
                 <div class="card-body info-card-body">
                     <p class="comic-description" style="margin-bottom: 0px;">Comments coming soon</p>

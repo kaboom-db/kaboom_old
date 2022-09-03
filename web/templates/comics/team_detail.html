@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load bleach_tags %}
+
+{% block title %}Kaboom - {{ team.name }}{% endblock %}
+
+{% block content %}
+<div class="container section">
+    <div class="row">
+        <div class="col-sm-4 text-center">
+            <div class="sticky">
+                <center>
+                    <div class="main-image-wrapper">
+                        {% if team.logo %}
+                        <img src="{{ team.logo }}" alt="{{ team.name }} cover" class="main-image generic-main-image">
+                        {% else %}
+                        <img src="{% static 'images/noimage.png' %}" alt="No Image" class="main-image comic-cover">
+                        {% endif %}
+                    </div>
+                </center>
+                <div class="spacer"></div>
+                <h3 class="item-name">{{ team.name }}</h3>
+                {% if team.disbanded == True %}
+                <h6><b>Disbanded</b>: Yes</h6>
+                {% else %}
+                <h6><b>Disbanded</b>: No</h6>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <h5 id="team-details"><span class="badge kaboom-badge fore-kaboom">Team Details</span></h5>
+            <div class="info-card">
+                <div class="card-body info-card-body">
+                    <p class="creator-description" style="margin-bottom: 0px;">{{ team.description | bleach }}</p>
+                </div>
+            </div>
+            <div class="spacer"></div>
+            {% if characters %}
+            <h5 id="characters"><span class="badge kaboom-badge fore-kaboom">Characters</span></h5>
+            <div class="flex">
+                {% for character in characters %}
+                <a href="{% url 'character' character.id character.slug %}" class="link sm-card-link" title="{{ character.name }}">
+                    <div class="info-card sm-card-result">
+                        <div class="sm-card-img-container">
+                            {% if character.image %}
+                            <img src="{{ character.image }}" alt="{{ character.name }} image" class="sm-card-img">
+                            {% else %}
+                            <img src="{% static 'images/noimage.png' %}" alt="No Image" class="sm-card-img">
+                            {% endif %}
+                        </div>
+                        <div class="card-body info-card-body">
+                            <div class="sm-card-name">
+                                <center>
+                                    <h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ character.name }}</h5>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            <div class="spacer"></div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
