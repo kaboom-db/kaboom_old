@@ -4,7 +4,8 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('comics/', views.comics_index, name='comics_index'),
+
+    path('browse/comics/', views.BrowseComics.as_view(), name='browse_comics'),
 
     path('comics/<int:comic_id>/', views.comic_redirect, name='comic_redirect'),
     path('comics/<int:comic_id>/<slug:slug>/', views.comic_detail, name='comic'),

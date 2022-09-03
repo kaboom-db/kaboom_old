@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.utils import timezone
+from django.views.generic import ListView
 
 from accounts.models import CustomUser
 from kaboom.utils import get_user_image, util_calculate_age
@@ -35,19 +36,33 @@ class SignUpView(generic.CreateView):
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
 
-########################################## COMIC STUFF ##########################################
+########################################## Browsing ##########################################
 
-def comics_index(request):
-    # Get the last updated comics
-    last_created = Comic.objects.all().order_by('-time_created')[:8]
-    publishers = Publisher.objects.all()
-    ctx = {
-        'active_comics': 'active',
-        'header': '📚 Comics',
-        'last_created': last_created,
-        'publishers': publishers
-    }
-    return render(request, 'comics/comics_index.html', context=ctx)
+class BrowseComics(ListView):
+    model = Comic
+    template_name = 'browse/comics.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        if query:
+            object_list = Comic.objects.filter(name__icontains=query)
+        else:
+            object_list = Comic.objects.all().order_by('-time_updated')[:20]
+        return object_list
+
+    def get_context_data(self,**kwargs):
+        context = super(BrowseComics, self).get_context_data(**kwargs)
+        context['last_created'] = Comic.objects.all().order_by('-time_created')[:8]
+        context['header'] = '📚 Comics'
+        q = self.request.GET.get("q")
+        if q:
+            context['query'] = q
+            context['label'] = "Results"
+        else:
+            context['label'] = "Recently Updated Comics"
+        return context
+
+########################################## COMIC STUFF ##########################################
 
 def comic_redirect(request, comic_id):
     comic = get_object_or_404(Comic, id=comic_id)

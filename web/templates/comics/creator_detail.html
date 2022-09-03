@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load bleach_tags %}
+{% load html_templates %}
 
 {% block title %}Kaboom - {{ creator.name }}{% endblock %}
 
@@ -42,20 +43,7 @@
             {% if comics %}
             <div class="flex">
                 {% for comic in comics %}
-                <a href="{% url 'comic' comic.id comic.slug %}" class="link sm-card-link" title="{{ comic.name }} ({{ comic.date_started.year }})">
-                    <div class="info-card sm-card-result">
-                        <div class="sm-card-img-container">
-                            <img src="{{ comic.cover_image }}" alt="{{ comic.name }} image" class="sm-card-img">
-                        </div>
-                        <div class="card-body info-card-body">
-                            <div class="sm-card-name">
-                                <center>
-                                    <h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ comic.name }}</h5>
-                                </center>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                {% itemcard comic.cover_image comic.name comic.id comic.slug 'comic' %}
                 {% endfor %}
             </div>
             {% endif %}

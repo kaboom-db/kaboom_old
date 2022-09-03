@@ -115,6 +115,10 @@ th {
     border: 5px rgb(19, 19, 19) solid;
 }
 
+.rounded-image {
+    border-radius: 10px;
+}
+
 /********************************************* INFO CARDS *********************************************/
 
 .info-card-body {

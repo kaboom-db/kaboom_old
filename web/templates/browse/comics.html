@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load html_templates %}
+
+{% block title %}Kaboom - Comics{% endblock %}
+
+{% block content %}
+<style>
+    .hz-card {
+        display: flex;
+        margin-bottom: 5px;
+    }
+
+    .hz-card-image-container {
+        margin-right: 5px;
+        border-radius: 10px;
+        overflow: hidden;
+        width: 75px;
+        min-width: 75px;
+        height: 125px;
+    }
+
+    .hz-card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .hz-card-name {
+        height: 1em;
+        display: block; 
+        display: -webkit-box; /* Fallback for non-webkit */
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis !important;
+    }
+
+</style>
+
+<div class="spacer"></div>
+<div class="container">
+    <form class="d-flex" action="{% url 'browse_comics' %}" method="get">
+        <input name="q" class="form-control me-2" id="search-box" type="search" placeholder="Search" aria-label="Search"
+            value="{{ query }}">
+    </form>
+</div>
+<div class="container section">
+    <div class="row">
+        <div class="col-sm-8">
+            <h5 id="comic-details"><span class="badge kaboom-badge fore-kaboom">{{ label }}</span></h5>
+            <div class="flex">
+                {% for comic in object_list %}
+                {% itemcard comic.cover_image comic.name comic.id comic.slug 'comic' %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <h5 id="comic-details"><span class="badge kaboom-badge fore-kaboom">Newly Added Comics</span></h5>
+            {% for comic in last_created %}
+            <a href="{% url 'comic' comic.id comic.slug %}" class="link">
+                <div class="info-card hz-card">
+                    <!-- image -->
+                    <div class="hz-card-image-container">
+                        <img src="{{ comic.cover_image }}" alt="{{ comic.name }} cover" class="hz-card-image">
+                    </div>
+    
+                    <!-- content -->
+                    <div class="card-body info-card-body">
+                        <div class="hz-card-name">
+                            <h6>{{ comic.name }}</h6>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

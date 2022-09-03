@@ -43,11 +43,14 @@
                     <li class="nav-item">
                         <a class="nav-link {{ active_home }}" aria-current="page" href="{% url 'home' %}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ active_comics }}" href="{% url 'comics_index' %}">Comics</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ active_users }}" href="/">Users</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Browse</a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="{% url 'browse_comics' %}">Comics</a></li>
+                            <li><a class="dropdown-item" href="">Characters</a></li>
+                            <li><a class="dropdown-item" href="">Teams</a></li>
+                            <li><a class="dropdown-item" href="">Creators</a></li>
+                        </ul>
                     </li>
                 </ul>
                 <div class="navbar-nav">
@@ -56,7 +59,7 @@
                     <a class="nav-link" href="{% url 'signup' %}">Signup</a>
                     {% else %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">{{ user.username }}</a>
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">{{ user.username }}</a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user"></i> &emsp; Profile</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> &emsp; Settings</a></li>
